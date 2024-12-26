@@ -1,3 +1,6 @@
+#volume must be in /home/aboukdid/data
+#domain name must be aboukdid.42.fr
+
 version: '3.8'
 services:
   nginx:
@@ -6,4 +9,17 @@ services:
     ports:
       - "443:443"
     container_name: Nginx
-    
+    networks:
+      - inception
+  mariadb:
+    image: mariadb
+    build: ./requirement/MariaDB
+    container_name: mariadb
+    networks:
+      - inception
+
+networks:
+  inception:
+    driver: bridge
+
+  
