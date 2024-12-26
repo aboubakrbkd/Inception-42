@@ -4,19 +4,21 @@
 version: '3.8'
 services:
   nginx:
-    image: nginx
     build: ./requirement/Nginx
     ports:
       - "443:443"
     container_name: Nginx
     networks:
       - inception
+    restart: always
   mariadb:
-    image: mariadb
     build: ./requirement/MariaDB
     container_name: mariadb
+    env_file:
+      - .env
     networks:
       - inception
+    restart: always
 
 networks:
   inception:
