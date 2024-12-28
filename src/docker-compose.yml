@@ -1,3 +1,4 @@
+#sudo vim /etc/hosts
 version: '3.8'
 services:
   nginx:
@@ -19,12 +20,12 @@ services:
   wordpress:
     build: ./requirement/Wordpress
     container_name: wordpress
-    env_file:
-      - .env
-    restart: always
     depends_on:
       - nginx
       - mariadb
+    env_file:
+      - .env
+    restart: always
     ports:
       - "9000:9000"
     networks:

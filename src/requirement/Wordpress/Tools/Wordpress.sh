@@ -1,10 +1,13 @@
 #!/bin/bash
 
 mkdir -p /var/www/html
+mkdir -p /run/php/
 
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
 chown -R www-data:www-data /var/www/html/
+
+chmod 755 -R /var/www/html
 
 chmod +x wp-cli.phar
 
@@ -18,7 +21,7 @@ touch wp-config.php
 
 cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 
-sed -i '36 s/\/run\/php\/php7.3-fpm.sock/9000/' /etc/php/7.3/fpm/pool.d/www.conf
+sed -i '36 s/\/run\/php\/php7.3-fpm.sock/9000/' /etc/php/7.4/fpm/pool.d/www.conf
 
 sed -i 's/database_name_here/'$MARIADB_DATABASE_NAME'/g' /var/www/html/wp-config.php
 
