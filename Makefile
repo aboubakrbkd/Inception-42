@@ -4,5 +4,5 @@ up:
 down:
 	docker-compose -f ./src/docker-compose.yml down
 
-clean:
+clean: down
 	docker system prune -af --volumes
