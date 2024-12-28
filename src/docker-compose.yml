@@ -8,7 +8,10 @@ services:
     container_name: Nginx
     networks:
       - inception
+    depends_on:
+      - wordpress
     restart: always
+
   mariadb:
     build: ./requirement/MariaDB
     container_name: mariadb
@@ -17,6 +20,7 @@ services:
     networks:
       - inception
     restart: always
+
   wordpress:
     build: ./requirement/Wordpress
     container_name: wordpress
@@ -25,8 +29,6 @@ services:
     env_file:
       - .env
     restart: always
-    ports:
-      - "9000:9000"
     networks:
       - inception
 networks:
