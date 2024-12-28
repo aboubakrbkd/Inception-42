@@ -18,22 +18,20 @@ touch wp-config.php
 
 cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 
-echo "1"
 sed -i '36 s/\/run\/php\/php7.3-fpm.sock/9000/' /etc/php/7.3/fpm/pool.d/www.conf
-echo "2"
+
 sed -i 's/database_name_here/'$MARIADB_DATABASE_NAME'/g' /var/www/html/wp-config.php
-echo "3"
+
 sed -i 's/username_here/'$MARIADB_DATABASE_USER'/g' /var/www/html/wp-config.php
-echo "4"
+
 sed -i 's/password_here/'$MARIADB_USER_PASSWORD'/g' /var/www/html/wp-config.php
-echo "5"
+
 sed -i 's/localhost/'$DOMAIN_NAME'/g' /var/www/html/wp-config.php
-echo "6"
+
 wp core install --url=$DOMAIN_NAME --title="Wordpress site" --admin_user=$WORDPRESS_ADMIN_USER --admin_password=$WORDPRESS_ADMIN_PASSWORD --admin_email=$WORDPRESS_ADMIN_EMAIL --allow-root
-echo "7"
+
 wp user create $WORDPRESS_USER $WORDPRESS_USER_EMAIL --user_pass=$WORDPRESS_USER_PASSWORD --role='author' --allow-root
-echo "8"
+
 echo "3LA LLAH YDOOOOOOOOZ"
-echo "9"
+
 php-fpm7.4 -F
-echo "10"
