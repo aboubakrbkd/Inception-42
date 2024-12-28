@@ -17,19 +17,9 @@ cd /var/www/html
 
 wp core download --allow-root
 
-touch wp-config.php
-
 cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 
-sed -i '36 s/\/run\/php\/php7.3-fpm.sock/9000/' /etc/php/7.4/fpm/pool.d/www.conf
-
-sed -i 's/database_name_here/'$MARIADB_DATABASE_NAME'/g' /var/www/html/wp-config.php
-
-sed -i 's/username_here/'$MARIADB_DATABASE_USER'/g' /var/www/html/wp-config.php
-
-sed -i 's/password_here/'$MARIADB_USER_PASSWORD'/g' /var/www/html/wp-config.php
-
-sed -i 's/localhost/'$DOMAIN_NAME'/g' /var/www/html/wp-config.php
+wp config create --dbname=$MARIADB_DATABASE_NAME --dbuser=$MARIADB_DATABASE_USER --dbpass=$MARIADB_USER_PASSWORD --dbhost=mariadb --allow-root
 
 wp core install --url=$DOMAIN_NAME --title="Wordpress site" --admin_user=$WORDPRESS_ADMIN_USER --admin_password=$WORDPRESS_ADMIN_PASSWORD --admin_email=$WORDPRESS_ADMIN_EMAIL --allow-root
 

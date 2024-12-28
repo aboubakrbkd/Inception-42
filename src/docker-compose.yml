@@ -21,7 +21,6 @@ services:
     build: ./requirement/Wordpress
     container_name: wordpress
     depends_on:
-      - nginx
       - mariadb
     env_file:
       - .env
