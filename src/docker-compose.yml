@@ -35,6 +35,16 @@ services:
       - inception
     volumes:
       - wordpress_v:/var/www/html
+  redis:
+    container_name: redis
+    build: ./requirement/bonus/redis
+    volumes:
+     - wordpress_v:/var/www/html
+    depends_on:
+      - wordpress
+    networks:
+      - inception
+    restart: always
 
 networks:
   inception:
