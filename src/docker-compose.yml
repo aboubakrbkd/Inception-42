@@ -45,6 +45,10 @@ services:
     networks:
       - inception
     restart: always
+  # adminer:
+  #   container_name: adminer
+  #   build: ./requirement/bonus/adminer
+  #   volum
 
 networks:
   inception:
