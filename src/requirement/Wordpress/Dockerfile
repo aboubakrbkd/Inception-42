@@ -7,7 +7,7 @@ RUN apt-get update && \
     php7.4-mbstring  apt-utils 
 
 COPY ./Tools/Wordpress.sh .
-COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+COPY ./Tools/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 EXPOSE 9000
 
 CMD ["bash", "Wordpress.sh"]
