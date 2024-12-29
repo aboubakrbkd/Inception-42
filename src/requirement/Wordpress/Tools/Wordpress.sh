@@ -5,7 +5,7 @@ if [ -f /var/www/html/wp-config.php ]; then
 else
     sleep 5
 
-    mkdir -p /run/php/
+    # mkdir -p /run/php/
     mkdir -p /var/www/html
 
     cd /var/www/html
