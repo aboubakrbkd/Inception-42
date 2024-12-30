@@ -63,6 +63,20 @@ services:
     ports:
       - "5555:5555"
     restart: always
+  cadvisor:
+    container_name: cadvisor
+    build: ./requirement/bonus/cadvisor
+    networks:
+      - inception
+    ports:
+      - "8082:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+    restart: always
+
 
 networks:
   inception:
