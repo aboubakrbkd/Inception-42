@@ -45,10 +45,16 @@ services:
     networks:
       - inception
     restart: always
-  # adminer:
-  #   container_name: adminer
-  #   build: ./requirement/bonus/adminer
-  #   volum
+  adminer:
+    container_name: adminer
+    build: ./requirement/bonus/adminer
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+    ports:
+      - "8080:8080"
+    restart: always
 
 networks:
   inception:
