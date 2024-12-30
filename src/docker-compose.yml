@@ -55,6 +55,14 @@ services:
     ports:
       - "8080:8080"
     restart: always
+  web:
+    container_name: web
+    build: ./requirement/bonus/website
+    networks:
+      - inception
+    ports:
+      - "5555:5555"
+    restart: always
 
 networks:
   inception:
