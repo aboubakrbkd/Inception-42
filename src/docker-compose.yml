@@ -76,6 +76,22 @@ services:
       - /sys:/sys:ro
       - /var/lib/docker:/var/lib/docker:ro
     restart: always
+  ftp:
+    container_name: ftp
+    env_file:
+      - .env
+    build: ./requirement/bonus/ftp
+    depends_on:
+      - wordpress
+    networks:
+      - inception
+    ports:
+      - "20:20"
+      - "21:21"
+      - "10000-10100:10000-10100"
+    volumes:
+      - wordpress_v:/home/abou/ftp
+    restart: always
 
 
 networks:
