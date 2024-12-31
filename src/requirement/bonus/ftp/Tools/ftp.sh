@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ ! -d "/var/run/vsftpd/empty" ]; then
+    mkdir -p "/var/run/vsftpd/empty"
+    chown root:root "/var/run/vsftpd/empty"
+    chmod 555 "/var/run/vsftpd/empty"
+fi
+
 if ! id "$FTP_USER" &>/dev/null; then
     adduser --disabled-password --gecos "" $FTP_USER
     echo "$FTP_USER:$FTP_PASSWORD_USER" | chpasswd
@@ -9,7 +15,7 @@ else
 fi
 
 mkdir -p /home/$FTP_USER/ftp/files
-chown nobody:nogroup /home/$FTP_USER/ftp
+chown root:root /home/$FTP_USER/ftp
 chmod a-w /home/$FTP_USER/ftp
 chown $FTP_USER:$FTP_USER /home/$FTP_USER/ftp/files
 
