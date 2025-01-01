@@ -1,7 +1,6 @@
 #!/bin/bash
 
 sed -i "s/^bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/mariadb.conf.d/50-server.cnf
-# sed -i "s|# port = 3306|port=3306|1" /etc/mysql/mariadb.cnf
 
 service mariadb start
 
