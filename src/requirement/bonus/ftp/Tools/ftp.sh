@@ -14,10 +14,9 @@ else
     echo "User $FTP_USER already exists."
 fi
 
-mkdir -p /home/$FTP_USER/ftp/files
-chown $FTP_USER:$FTP_USER /home/$FTP_USER/ftp/files
-chmod -R 777 /home/$FTP_USER/ftp
-chmod -R 777 /home/$FTP_USER/ftp/files
+mkdir -p /home/$FTP_USER/ftp
+chown $FTP_USER:$FTP_USER /home/$FTP_USER/ftp
+chmod -R 755 /home/$FTP_USER/ftp
 
 sed -i -r "s/#write_enable=YES/write_enable=YES/" /etc/vsftpd.conf
 sed -i -r "s/#chroot_local_user=YES/chroot_local_user=YES/" /etc/vsftpd.conf
@@ -31,3 +30,5 @@ echo "pasv_max_port=10100" >> /etc/vsftpd.conf
 echo "userlist_file=/etc/vsftpd.userlist" >> /etc/vsftpd.conf
 
 exec /usr/sbin/vsftpd
+
+
