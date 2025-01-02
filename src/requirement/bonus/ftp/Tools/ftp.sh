@@ -6,29 +6,24 @@ if [ ! -d "/var/run/vsftpd/empty" ]; then
     chmod 555 "/var/run/vsftpd/empty"
 fi
 
-if ! id "$FTP_USER" &>/dev/null; then
-    adduser --disabled-password --gecos "" $FTP_USER
-    echo "$FTP_USER:$FTP_PASSWORD_USER" | chpasswd
-    echo "$FTP_USER" | tee -a /etc/vsftpd.userlist
-else
-    echo "User $FTP_USER already exists."
-fi
-
+adduser --gecos "" --disabled-password $FTP_USER
+echo "$FTP_USER:$FTP_PASSWORD_USER" | chpasswd
 mkdir -p /home/$FTP_USER/ftp
 chown $FTP_USER:$FTP_USER /home/$FTP_USER/ftp
-chmod -R 755 /home/$FTP_USER/ftp
 
-sed -i -r "s/#write_enable=YES/write_enable=YES/" /etc/vsftpd.conf
-sed -i -r "s/#chroot_local_user=YES/chroot_local_user=YES/" /etc/vsftpd.conf
-
-echo "local_enable=YES" >> /etc/vsftpd.conf
-echo "allow_writeable_chroot=YES" >> /etc/vsftpd.conf
-echo "pasv_enable=YES" >> /etc/vsftpd.conf
-echo "local_root=/home/$FTP_USER/ftp" >> /etc/vsftpd.conf
-echo "pasv_min_port=10000" >> /etc/vsftpd.conf
-echo "pasv_max_port=10100" >> /etc/vsftpd.conf
-echo "userlist_file=/etc/vsftpd.userlist" >> /etc/vsftpd.conf
+echo "Updating vsftpd configuration."
+{
+    echo "write_enable=YES"
+    echo "chroot_local_user=YES"
+    echo "local_enable=YES"
+    echo "allow_writeable_chroot=YES"
+    echo "pasv_enable=YES"
+    echo "local_root=/home/$FTP_USER/ftp"
+    echo "pasv_min_port=10000"
+    echo "pasv_max_port=10100"
+    echo "userlist_file=/etc/vsftpd.userlist"
+    echo "$FTP_USER" >> /etc/vsftpd.userlist
+    
+} >> "/etc/vsftpd.conf"
 
 exec /usr/sbin/vsftpd
-
-
