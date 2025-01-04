@@ -2,10 +2,11 @@ version: '3.8'
 
 services:
   nginx:
-    build: ./requirement/Nginx
+    build: ./requirement/nginx
     ports:
       - "443:443"
-    container_name: Nginx
+    container_name: nginx
+    image: nginx:42
     networks:
       - inception
     depends_on:
@@ -14,7 +15,8 @@ services:
       - wordpress_v:/var/www/html
     restart: always
   mariadb:
-    build: ./requirement/MariaDB
+    image: mariadb:42
+    build: ./requirement/mariaDB
     container_name: mariadb
     env_file:
       - .env
@@ -24,7 +26,8 @@ services:
       - mariadb_v:/var/lib/mysql
     restart: always
   wordpress:
-    build: ./requirement/Wordpress
+    image: wordpress:42
+    build: ./requirement/wordpress
     container_name: wordpress
     depends_on:
       - mariadb
@@ -36,6 +39,7 @@ services:
     volumes:
       - wordpress_v:/var/www/html
   redis:
+    image: redis:42
     container_name: redis
     build: ./requirement/bonus/redis
     volumes:
@@ -46,6 +50,7 @@ services:
       - inception
     restart: always
   adminer:
+    image: adminer:42
     container_name: adminer
     build: ./requirement/bonus/adminer
     depends_on:
@@ -56,6 +61,7 @@ services:
       - "8080:8080"
     restart: always
   web:
+    image: web:42
     container_name: web
     build: ./requirement/bonus/website
     networks:
@@ -64,6 +70,7 @@ services:
       - "5555:5555"
     restart: always
   cadvisor:
+    image: cadvisor:42
     container_name: cadvisor
     build: ./requirement/bonus/cadvisor
     networks:
@@ -77,6 +84,7 @@ services:
       - /var/lib/docker:/var/lib/docker:ro
     restart: always
   ftp:
+    image: ftp:42
     container_name: ftp
     env_file:
       - .env
