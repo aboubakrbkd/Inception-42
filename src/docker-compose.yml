@@ -16,7 +16,7 @@ services:
     restart: always
   mariadb:
     image: mariadb:42
-    build: ./requirement/mariaDB
+    build: ./requirement/mariadb
     container_name: mariadb
     env_file:
       - .env
